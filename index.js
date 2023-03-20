@@ -3,7 +3,7 @@ function App() {
     const [countryData, setCountryData] = React.useState([]);
     React.useEffect(() =>{
         async function fetchData(){
-           const response = await fetch("https://disease.sh/v3/covid-19/countries");
+           const response = await fetch("https://disease.sh/v3/covid-19/countries?sort=casesPerOneMillion");
            const data = await response.json()
            console.log(data);
            setCountryData(data);
