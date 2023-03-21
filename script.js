@@ -22,6 +22,28 @@ let drawCanvas = () => {
 
 let generateScales = () => {
 
+    heightScale = d3.scaleLinear()
+                    .domain([0,d3.max(values, (item) => {
+                        return item[1]
+                    })])
+                    .range([0, height - (2*padding)])
+
+    xScale = d3.scaleLinear()
+                    .domain([0, value.length -1])
+                    .range([padding, width - padding])
+
+    let datesArray = value.map((item) => {
+        return new Date(item[0])
+    })
+
+    xAxisScale = d3.scaleTime()
+                    .domain([d3.min(datesArray, d3.max(datesArray)])
+                    .range([padding, width - padding])
+
+    yAxisScale = d3.scaleLinear()
+                   .domain([0, d3.max(values, (tiem) => {
+                    
+                   })])
 }
 
 let drawBars = () => {
@@ -40,6 +62,6 @@ req.onload = () => {
     drawCanvas()
     generateScales()
     drawBars()
-    generateAxes
+    generateAxes()
 }
 req.send()
