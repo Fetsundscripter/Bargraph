@@ -48,6 +48,14 @@ let generateScales = () => {
 }
 
 let drawBars = () => {
+
+    let tooltip = d3.select('body')
+                    .append('div')
+                    .attr('id', 'tooltip')
+                    .style('visibility', 'hidden')
+                    .style('width', 'atuto')
+                    .style('height', 'auto')
+
     svg.selectAll('rect')
         .data(values)
         .enter()
@@ -62,6 +70,24 @@ let drawBars = () => {
         })
         .attr('height', (item) => {
             return heightScale(item[1])
+        })
+        .attr('x', (item, index) =>{
+            return xScale(index)
+        })
+        .attr('y', (item) => {
+            return (height - padding) - heightScale(item[1])
+        })
+        .on('mouseover', (item) =>{
+            tooltip.transition()
+            .style('visibility', 'visible')
+            
+            tooltip.text(item[0])
+
+            document.querySelector('#tooltip').setAttribute('data-date', item[0])
+        })
+        .on('mouseout', (item) =>{
+            tooltip.transition()
+            .style('visibility', 'hidden')
         })
 }
 
